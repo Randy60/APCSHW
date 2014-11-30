@@ -2,10 +2,7 @@ import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 public class wordSearch{
-    public ArrayList<String> Words = new ArrayList<String>();
     public char[][] box;
-    Scanner s;
-
     Random r = new Random();
     public wordSearch(int x, int y, int seed){
 	if(x == 0 || y == 0){
@@ -17,17 +14,13 @@ public class wordSearch{
 	r = new Random(seed);
 	box = new char[y][x];
 	clear(box);
-	    
-    try {
-	 s = new Scanner(new File("./words.txt")); }
-    catch (Exception e) {}
-    
     }
     public wordSearch(int x, int y){
 	if(x == 0 || y == 0){
 	    x = 10;
 	    y = 10;
 	    System.out.println("You're a tricky one aren't you");
+	 
 	}
 	box = new char[y][x];
 	clear(box);
@@ -39,6 +32,14 @@ public class wordSearch{
     public wordSearch(){
 	box = new char[10][10];
 	clear(box);
+    }
+    public String getWord() throws FileNotFoundException {
+	File text = new File("words.txt");
+	Scanner s = new Scanner(text);
+	for(int i = 0; i < r.nextInt(149); i++){
+	    s.next();
+	}
+	return s.next();
     }
     public void clear(char[][] ar){
 	for(int x = 0; x < ar.length; x++){
@@ -58,12 +59,15 @@ public class wordSearch{
 	return s;
     }
     public boolean checkWordOmn(String s, int y, int x, int dx, int dy){
-	boolean fine = true;
+	if(box.length < s.length() || box[1].length < s.length())
+	    return false;
+	int a = x;
+	int b = y;
 	for(int i = 0; i < s.length(); i++){
-	    if(s.charAt(i) != box[x][y] && box[x][y] != '_')
+	    if(s.charAt(i) != box[a][b] && box[a][b] != '_')
 		return false;
-	    x += dx;
-	    y -= dy;
+	    a += dx;
+	    b -= dy;
 	}
 	return true;
     }
@@ -102,14 +106,19 @@ public class wordSearch{
 		    box[i][x] = (char)('a'+r.nextInt(26));
 	    }
 	}
-	System.out.println(Words);
     }
     
-    public void addWords(int i){
+    public void addWords(int i) throws FileNotFoundException {
 	int x = 0;
+	String[] str = new String[i];
 	while(x < i){
-	    if(addWord(s.nextLine() , 100))
-		    x++;
+	    String q = new String();
+	    q = getWord();
+	    if(addWord(q, 100)){
+		str[x] = q;
+		x++;    
 	    }
+	    System.out.println(Arrays.toString(str));
+	}
     }
 }

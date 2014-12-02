@@ -1,4 +1,4 @@
-import java.util.Exception;
+import java.util.*;
 public class SuperArray{
     Object[] ar;
     public SuperArray(int a){
@@ -64,8 +64,6 @@ public class SuperArray{
 	}
     }
     public String set(int x, Object a){
-	if(x < 0)
-	    throw new ArithmeticExeption();
 	if(x >= 0 && x < ar.length){
 	    Object o = ar[x];
 	    ar[x] = a;
@@ -109,6 +107,30 @@ public class SuperArray{
 	    if(size() * 4 < ar.length)
 		resize(ar.length / 2);
 	    return ""+ob+" was removed at index "+c;
+	}
+    }
+    public int compare(Object a, Object b){
+	    String sa = "" + a;
+	    String sb = ""+b;
+	    return sa.compareTo(sb);
+    }
+    public void sortFast(){
+	for(int x = 0; x < ar.length; x++){
+	    
+    }
+    public void sort(){
+	int x = 0;
+	while(x < ar.length - 1){
+	    if(compare(ar[x], ar[x+1]) <= 0){
+		x++;
+	    }else{
+		Object i = ar[x];
+		ar[x] = ar[x+1];
+		ar[x+1] = i;
+		if(x>0){
+		    x--;
+		}
+	    }
 	}
     }
 }

@@ -32,17 +32,18 @@ public class OrderedSuperArray{
 		resize(ar.length * 2);
 	    }
 	    int x = 0;
-	    while(get(x).compareTo(e) < 0 &&
-		  size() > x){
+	    while(ar[x] != null && ar[x].compareTo(e) < 0){ 
 		x++;
 	    }
 	    add(x, e);
 	    return true;
 	}
     }	    
+
     public int size(){
 	return arLength;
     }
+
     public void resize(int a){
 	String[] bc;
 	bc = new String[a];
@@ -67,7 +68,7 @@ public class OrderedSuperArray{
 	}
 	else{
 	    System.out.println("no Object at this Index");
-		return null;
+	    return null;
 	}
     }
     public String set(int x, String a){

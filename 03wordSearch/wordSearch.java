@@ -4,7 +4,8 @@ import java.io.FileNotFoundException;
 public class wordSearch{
     public char[][] box;
     Random r = new Random();
-    public wordSearch(int x, int y, int seed){
+    ArrayList<String> Limp = new ArrayList<String>(10);
+    public wordSearch(int x, int y, int seed) throws FileNotFoundException{
 	if(x == 0 || y == 0){
 	    x = 10;
 	    y = 10;
@@ -14,8 +15,13 @@ public class wordSearch{
 	r = new Random(seed);
 	box = new char[y][x];
 	clear(box);
+	File text = new File("words.txt");
+	Scanner s = new Scanner(text);
+	while (s.hasNext()){
+	    Limp.add(s.next());
+	}
     }
-    public wordSearch(int x, int y){
+    public wordSearch(int x, int y) throws FileNotFoundException{
 	if(x == 0 || y == 0){
 	    x = 10;
 	    y = 10;
@@ -24,23 +30,36 @@ public class wordSearch{
 	}
 	box = new char[y][x];
 	clear(box);
-    }
-    public wordSearch(int square){
-	box = new char[square][square];
-	clear(box);
-    }
-    public wordSearch(){
-	box = new char[10][10];
-	clear(box);
-    }
-    public String getWord() throws FileNotFoundException {
 	File text = new File("words.txt");
 	Scanner s = new Scanner(text);
-	for(int i = 0; i < r.nextInt(149); i++){
-	    s.next();
+	while (x < 150){
+	    Limp.add(s.next());
+	    x++;
 	}
-	return s.next();
     }
+    public wordSearch(int square) throws FileNotFoundException {
+	this(square, square);
+    }
+    public wordSearch() throws FileNotFoundException {
+	this(10);
+    }
+    public void setSeed(int i){
+	r = new Random(i);
+    }
+    public String getWord() throws FileNotFoundException {
+	int a = r.nextInt(Limp.size());
+	String x = Limp.get(a);
+	return x;
+    }
+    public void fill(){
+	for(int i = 0; i < box.length; i++){
+	    for(int x = 0; x < box[i].length; x++){
+		if(box[i][x] == '_')
+		    box[i][x] = (char)('a'+r.nextInt(26));
+	    }
+	}
+    }
+    
     public void clear(char[][] ar){
 	for(int x = 0; x < ar.length; x++){
 	    for(int i = 0; i < ar[x].length; i++){
@@ -71,54 +90,39 @@ public class wordSearch{
 	}
 	return true;
     }
-    public boolean addWordOmn(String s, int x, int y, int dx, int dy){
-	if((dx != 0) || (dy != 0) && checkWordOmn(s, y, x, dx, dy)){
+    public void addWordOmn(String s, int x, int y, int dx, int dy){
 	    for(int i = 0; i < s.length(); i++){
 		box[y][x] = s.charAt(i);
 		x+=dx;
 		y-=dy;
 	    }
-	    return true;
-	}
-	else
-	    return false;
     }
     public boolean addWord(String s, int tries){
 	if(tries == 0)
 	    return false;
-	else{
 	    int dx = r.nextInt(2);
 	    int dy = r.nextInt(3) - 1;
 	    int y = 0;
-	    if(dy == 1)
+	    if(dy == 1 && s.length() <= box.length)
 		y = r.nextInt(box.length - s.length()) + s.length();
-	    if(dy == -1)
+	    if(dy == -1 && s.length() < box[1].length)
 		y = r.nextInt(box.length - s.length());
-	    if(addWordOmn(s, r.nextInt(box[y].length - (dx * s.length())), y, dx, dy))
+	    if(checkWordOmn(s, r.nextInt(box[y].length - (dx * s.length())),
+			    y, dx, dy)){
+		addWordOmn(s, r.nextInt(box[y].length - (dx * s.length())), y, dx, dy);
 		return true;
-	}
+	    }
 	    return addWord(s, tries--);
     }
-    public void fill(){
-	for(int i = 0; i < box.length; i++){
-	    for(int x = 0; x < box[i].length; x++){
-		if(box[i][x] == '_')
-		    box[i][x] = (char)('a'+r.nextInt(26));
-	    }
-	}
-    }
-    
     public void addWords(int i) throws FileNotFoundException {
 	int x = 0;
 	String[] str = new String[i];
 	while(x < i){
-	    String q = new String();
-	    q = getWord();
-	    if(addWord(q, 100)){
-		str[x] = q;
-		x++;    
-	    }
-	    System.out.println(Arrays.toString(str));
+	    String q = new String("hey");
+	    addWord(q, 100 );
+		    str[x] = q;
+		    x++;
 	}
+	System.out.println(Arrays.toString(str));
     }
 }

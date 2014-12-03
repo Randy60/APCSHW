@@ -1,6 +1,8 @@
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+
+
 public class wordSearch{
     public char[][] box;
     Random r = new Random();
@@ -78,12 +80,20 @@ public class wordSearch{
 	return s;
     }
     public boolean checkWordOmn(String s, int y, int x, int dx, int dy){
-	if(box.length < s.length() || box[1].length < s.length())
-	    return false;
 	int a = x;
 	int b = y;
+	if(dx == 0 && dy == 0)
+	    return false;
 	for(int i = 0; i < s.length(); i++){
-	    if(s.charAt(i) != box[a][b] && box[a][b] != '_')
+	    //System.out.println(a +" "+ b);
+	    if(a >= box[0].length || b >= box.length){
+		return false;
+	    }
+
+	    if( a < 0 || b < 0){
+		return false;
+	    }
+	    if(s.charAt(i) != box[b][a] &&  box[b][a] != '_')
 		return false;
 	    a += dx;
 	    b -= dy;
@@ -97,31 +107,33 @@ public class wordSearch{
 		y-=dy;
 	    }
     }
+
     public boolean addWord(String s, int tries){
 	if(tries == 0)
 	    return false;
 	    int dx = r.nextInt(2);
 	    int dy = r.nextInt(3) - 1;
 	    int y = 0;
-	    if(dy == 1 && s.length() <= box.length)
-		y = r.nextInt(box.length - s.length()) + s.length();
-	    if(dy == -1 && s.length() < box[1].length)
-		y = r.nextInt(box.length - s.length());
-	    if(checkWordOmn(s, r.nextInt(box[y].length - (dx * s.length())),
-			    y, dx, dy)){
-		addWordOmn(s, r.nextInt(box[y].length - (dx * s.length())), y, dx, dy);
+	    int x = 0;
+
+	    y = r.nextInt(box.length);
+	    x = r.nextInt(box[0].length);
+
+	    if(checkWordOmn(s, y, x, dx, dy)){
+		addWordOmn(s,  x, y, dx, dy);
 		return true;
 	    }
-	    return addWord(s, tries--);
+	    return addWord(s, --tries);
     }
     public void addWords(int i) throws FileNotFoundException {
 	int x = 0;
 	String[] str = new String[i];
 	while(x < i){
-	    String q = new String("hey");
-	    addWord(q, 100 );
+	    String q = new String(getWord());
+	    if(addWord(q, 100 )){
 		    str[x] = q;
 		    x++;
+	    }
 	}
 	System.out.println(Arrays.toString(str));
     }

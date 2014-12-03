@@ -4,18 +4,24 @@ import java.io.FileNotFoundException;
 public class wordSearch{
     public ArrayList<String> Words = new ArrayList<String>();
     public char[][] box;
-    Scanner s = new Scanner(new File("C:/APCS/03wordSearch/words.txt"));
-    
+    Scanner s;
+
     Random r = new Random();
     public wordSearch(int x, int y, int seed){
 	if(x == 0 || y == 0){
 	    x = 10;
 	    y = 10;
 	    System.out.println("You're a tricky one aren't you");
+	 
 	}
 	r = new Random(seed);
 	box = new char[y][x];
 	clear(box);
+	    
+    try {
+	 s = new Scanner(new File("./words.txt")); }
+    catch (Exception e) {}
+    
     }
     public wordSearch(int x, int y){
 	if(x == 0 || y == 0){
@@ -102,7 +108,7 @@ public class wordSearch{
     public void addWords(int i){
 	int x = 0;
 	while(x < i){
-	    if(addWord(s.next() , 100))
+	    if(addWord(s.nextLine() , 100))
 		    x++;
 	    }
     }

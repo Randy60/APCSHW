@@ -7,6 +7,7 @@ public class wordSearch{
     public char[][] box;
     Random r = new Random();
     ArrayList<String> Limp = new ArrayList<String>(10);
+    ArrayList<String> Words = new ArrayList<String>(10);
     public wordSearch(int x, int y, int seed) throws FileNotFoundException{
 	if(x == 0 || y == 0){
 	    x = 10;
@@ -111,30 +112,33 @@ public class wordSearch{
     public boolean addWord(String s, int tries){
 	if(tries == 0)
 	    return false;
-	    int dx = r.nextInt(2);
-	    int dy = r.nextInt(3) - 1;
-	    int y = 0;
-	    int x = 0;
+	int dx = r.nextInt(2);
+	int dy = r.nextInt(3) - 1;
+	int y = 0;
+	int x = 0;
 
-	    y = r.nextInt(box.length);
-	    x = r.nextInt(box[0].length);
+	y = r.nextInt(box.length);
+	x = r.nextInt(box[0].length);
 
-	    if(checkWordOmn(s, y, x, dx, dy)){
-		addWordOmn(s,  x, y, dx, dy);
-		return true;
-	    }
+	if(checkWordOmn(s, y, x, dx, dy)){
+	    addWordOmn(s,  x, y, dx, dy);
+	    return true;
+	}
 	    return addWord(s, --tries);
+    }
+    
+    public void WordMe(){
+	System.out.println(Words.toString());
     }
     public void addWords(int i) throws FileNotFoundException {
 	int x = 0;
-	String[] str = new String[i];
 	while(x < i){
 	    String q = new String(getWord());
-	    if(addWord(q, 100 )){
-		    str[x] = q;
+	    if(addWord(q, 100)){
+		Words.add(q);
 		    x++;
 	    }
 	}
-	System.out.println(Arrays.toString(str));
+
     }
 }

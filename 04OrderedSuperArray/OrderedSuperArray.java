@@ -48,7 +48,6 @@ public class OrderedSuperArray{
 	String[] bc;
 	bc = new String[a];
 	int x = 0;
-	arLength = 0;
 	while(x < bc.length && x < arLength){
 	    bc[x] = ar[x];
 	    x++;
@@ -83,10 +82,10 @@ public class OrderedSuperArray{
 	    return null;
 	}
     }
-    private void add(int x, String e){
+    public void add(int x, String e){
 	if(x >= 0 && x <= ar.length){
-	    if(arLength == ar.length){
-		resize(ar.length + 1);
+	    if(arLength >= ar.length){
+		resize(ar.length * 2);
 	    }
 	    int b = ar.length - 1;
 	    while(x < b){
@@ -97,7 +96,7 @@ public class OrderedSuperArray{
 	    arLength++;
 	}
 	else
-	    System.out.println("invalid Index");
+	    System.out.println("invalid index");
     }
     public String remove(int x){
 	if(x < 0 || x >= arLength){
@@ -106,7 +105,7 @@ public class OrderedSuperArray{
 	}
 	else{
 	    int c = x;
-	    Object ob = ar[x];
+	    String ob = ar[x];
 	    while(x < ar.length - 1){
 		ar[x] = ar[x + 1];
 		x++;
@@ -115,7 +114,72 @@ public class OrderedSuperArray{
 	    arLength--;
 	    if(size() * 4 < ar.length)
 		resize(ar.length / 2);
-	    return ""+ob+" was removed at index "+c;
+	    return ob;
 	}
+    }
+    public void addBad(String s){
+	if(arLength == 0)
+	    add(0, s);
+	else
+	    add(arLength - 1, s);
+    }
+    public void badInsertionSort(){
+
+        OrderedSuperArray c = new OrderedSuperArray();
+        while( this.size() > 0){ 
+            c.add(this.remove(0));
+        }
+        while(c.size() > 0){
+            this.add(c.remove(0));
+        }
+    }
+    public void sort(){
+	int i = 0;
+	while(i < size() - 2){
+	    if(ar[i].compareTo(ar[i+1]) <= 0)
+		i++;
+	    else{
+		//	System.out.println(i);
+		//	System.out.println(toString());
+		int a = 0;
+		for(int x = 0; ar[x].compareTo(ar[i + 1]) < 0; x++){
+		    a++;
+		}
+		//	System.out.println(a);
+		if(a > i){
+		    add(a - 1, remove(i + 1));
+		}else{
+		    add(a, remove(i + 1));
+		}
+		//		if(a < i && i > 0)
+		//  i--;
+	    }
+	}
+	}
+	//	if(check() == false){
+	//  sort();
+	//}
+    public void sortSlow(){
+	int x = 0;
+	while(x < arLength - 2){
+	    if(ar[x].compareTo(ar[x+1]) <= 0){
+		x++;
+	    }else{
+		String i = ar[x];
+		ar[x] = ar[x+1];
+		ar[x+1] = i;
+		if(x>0){
+		    x--;
+		}
+	    }
+	}
+    }
+    public boolean check(){
+	for(int i = 0; i < size() - 2; i++){
+	    if(ar[i].compareTo(ar[i+1]) > 0){
+		return false;
+	    }
+	}
+	return true;
     }
 }

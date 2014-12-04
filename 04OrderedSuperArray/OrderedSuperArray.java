@@ -133,7 +133,7 @@ public class OrderedSuperArray{
             this.add(c.remove(0));
         }
     }
-    public void sort(){
+    public void insertionSort(){
 	int i = 0;
 	while(i < size() - 2){
 	    if(ar[i].compareTo(ar[i+1]) <= 0)
@@ -159,7 +159,7 @@ public class OrderedSuperArray{
 	//	if(check() == false){
 	//  sort();
 	//}
-    public void sortSlow(){
+    public void sortSwap(){
 	int x = 0;
 	while(x < arLength - 2){
 	    if(ar[x].compareTo(ar[x+1]) <= 0){
@@ -181,5 +181,35 @@ public class OrderedSuperArray{
 	    }
 	}
 	return true;
+    }
+    public int findLine(String s){
+	for(int i = 0; i < size(); i++){
+	    if(s.compareTo(get(i)) == 0)
+		return i;
+	}
+	return -1;
+    }
+    //This is binary
+    public int find(String s){
+	int x = size() / 2;
+	int half = size() / 4;
+	for(int i = 0; i < 15; i++){
+	    if(s.compareTo(get(x)) == 0){
+		return x;
+	    }else{
+		if(s.compareTo(get(x)) > 0){
+		    x+=half;
+		    half/=2;
+		}else{
+		    x-=half;
+		    half/=2;
+		}      
+	    }
+	}
+	if(check() != true){
+	    return findLine(s);
+		}
+	System.out.println("String not in list");
+	return -1;
     }
 }

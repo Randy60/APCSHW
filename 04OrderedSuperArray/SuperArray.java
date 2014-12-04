@@ -90,7 +90,7 @@ public class SuperArray{
 	else
 	    System.out.println("invalid Index");
     }
-    public String remove(int x){
+    public Object remove(int x){
 	if(x < 0 || x >= arLength){
 	    System.out.println("invalid index");
 	    return null;
@@ -106,7 +106,7 @@ public class SuperArray{
 	    arLength--;
 	    if(size() * 4 < ar.length)
 		resize(ar.length / 2);
-	    return ""+ob+" was removed at index "+c;
+	    return ob;
 	}
     }
     public int compare(Object a, Object b){
@@ -114,7 +114,7 @@ public class SuperArray{
 	    String sb = ""+b;
 	    return sa.compareTo(sb);
     }
-    public void sort(){
+    public void sortSwap(){
 	int x = 0;
 	while(x < ar.length - 1){
 	    if(compare(ar[x], ar[x+1]) <= 0){
@@ -129,4 +129,45 @@ public class SuperArray{
 	    }
 	}
     }
+    public void insertionSort(){
+	int i = 0;
+	while(i < size() - 2){
+	    if(compare(ar[i], ar[i+1]) <= 0)
+		i++;
+	    else{
+		//	System.out.println(i);
+		//	System.out.println(toString());
+		int a = 0;
+		for(int x = 0; compare(ar[x], ar[i + 1]) < 0; x++){
+		    a++;
+		}
+		//	System.out.println(a);
+		if(a > i){
+		    add(a - 1, remove(i + 1));
+		}else{
+		    add(a, remove(i + 1));
+		}
+		//		if(a < i && i > 0)
+		//  i--;
+	    }
+	}
+    }
+     public boolean check(){
+	for(int i = 0; i < size() - 2; i++){
+	    if(compare(ar[i], ar[i+1]) > 0){
+		return false;
+	    }
+	}
+	return true;
+    }
+    //this is linear
+    public int find(Object s){
+	for(int i = 0; i < size(); i++){
+	    if(compare(s, get(i)) == 0)
+		return i;
+	}
+	System.out.println("String not in list");
+	return -1;
+    }
+		
 }

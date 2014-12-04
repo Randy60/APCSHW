@@ -193,22 +193,25 @@ public class OrderedSuperArray{
     public int find(String s){
 	int x = size() / 2;
 	int half = size() / 4;
-	for(int i = 0; i < 15; i++){
+	for(int i = 0; half - 1 > 1; i++){
 	    if(s.compareTo(get(x)) == 0){
+		while(s.compareTo(get(x - 1)) == 0){
+		    x--;
+		}
 		return x;
 	    }else{
-		if(s.compareTo(get(x)) > 0){
-		    x+=half;
+		if(s.compareTo(get(x)) < 0){
+		    x-=half;
 		    half/=2;
 		}else{
-		    x-=half;
+		    x+=half;
 		    half/=2;
 		}      
 	    }
 	}
 	if(check() != true){
 	    return findLine(s);
-		}
+	}
 	System.out.println("String not in list");
 	return -1;
     }

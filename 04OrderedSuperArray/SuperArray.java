@@ -160,6 +160,7 @@ public class SuperArray{
 	}
 	return true;
     }
+    
     //this is linear
     public int find(Object s){
 	for(int i = 0; i < size(); i++){

@@ -1,13 +1,13 @@
 import java.util.*;
 public class main{
     public static void main(String[]args){
-	Random r = new Random();
+	Random r = new Random(4523);
 	SuperArray Phil = new SuperArray();
-	for(int i = 0; i < 100000; i++){
+	for(int i = 0; i < 200000; i++){
 	    Phil.add(""+ r.nextInt(499));
 	}
 	System.out.println(Phil.check());
-	Phil.mergeSort();
+	Phil.mergeSortMulti();
 	System.out.println(Phil.check());
     }
 }

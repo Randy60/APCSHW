@@ -217,4 +217,45 @@ public class SuperArray{
 	    }
 	}
     }
+    public void mergeSortMulti(){
+	if(size() <= 3125){
+	    selectionSort();
+	}else{
+	    SuperArray ar1 = new SuperArray(size()/2);
+	    SuperArray ar2 = new SuperArray(size()/2);
+	    int i = 0;
+	    while(i < size()/2){
+		ar1.add(ar[i]);
+		i++;
+	    }
+	    while(i >= size()/2 && i < size()){
+		ar2.add(ar[i]);
+		i++;
+	    }
+	    ar1.mergeSortMulti();
+	    ar2.mergeSortMulti();
+	    int ar1c = 0;
+	    int ar2c = 0;
+	    for(int x = 0; x < size(); x++){
+		if(ar2c == size()/2){
+		    ar[x] = ar1.get(ar1c);
+		    ar1c++;
+		}else{
+		    if(ar1c == size()/2){
+			ar[x] = ar2.get(ar2c);
+			ar2c++;
+		    }else{
+			if(ar1.get(ar1c).compareTo(ar2.get(ar2c)) < 0){
+			    ar[x] = ar1.get(ar1c);
+			    ar1c++;
+			}
+			else{
+			    ar[x] = ar2.get(ar2c);
+			    ar2c++;
+			}
+		    }
+		}
+	    }
+	}
+    }
 }

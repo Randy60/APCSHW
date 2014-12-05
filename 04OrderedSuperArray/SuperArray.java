@@ -146,6 +146,8 @@ public class SuperArray{
 		//  i--;
 	    }
 	}
+	if(check() == false)
+	    insertionSort();
     }
      public boolean check(){
 	for(int i = 0; i < size() - 2; i++){
@@ -177,6 +179,42 @@ public class SuperArray{
 	    ar[spot] = ar[i];
 	    ar[i] = a;
 	}
-	
+    }
+    public void mergeSort(){
+	SuperArray ar1 = new SuperArray(size()/2);
+	SuperArray ar2 = new SuperArray(size()/2);
+	int i = 0;
+	int ar1c = 0;
+	int ar2c = 0;
+	while(i < size()/2){
+	    ar1.add(ar[i]);
+	    i++;
+	}
+	while(i >= size()/2 && i < size()){
+	    ar2.add(ar[i]);
+	    i++;
+	}
+	ar1.selectionSort();
+	ar2.selectionSort();
+	for(int x = 0; x < size(); x++){
+	    if(ar2c == size()/2){
+		ar[x] = ar1.get(ar1c);
+		ar1c++;
+	    }else{
+		if(ar1c == size()/2){
+		    ar[x] = ar2.get(ar2c);
+		    ar2c++;
+		}else{
+		    if(ar1.get(ar1c).compareTo(ar2.get(ar2c)) < 0){
+			ar[x] = ar1.get(ar1c);
+			ar1c++;
+		    }
+		    else{
+			ar[x] = ar2.get(ar2c);
+			ar2c++;
+		    }
+		}
+	    }
+	}
     }
 }

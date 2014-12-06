@@ -9,18 +9,22 @@ public class SuperArray{
     }
     int arLength = 0;
     public String toString(){
+	String ans = "";
+	int c = size()/2;
 	String s = "";
+	String s2 = "";
 	int x = 0;
-	while(x < ar.length){
-	    if(null == ar[x]){
+	while(x < c){
+	    if(null == ar[x])
 		x++;
-	    }
 	    else{
 		s = s+ar[x]+",";
+		s2 = s2+ar[x+c]+",";
 		x++;
 	    }
 	}
-	return ("[ "+s+"]");
+	ans = s+s2;
+	return("[ "+ans+"]");
     }
     public void add(String e){
 	if(arLength < ar.length){

@@ -262,4 +262,28 @@ public class SuperArray{
 	    }
 	}
     }
+    public void doubleBubbleSort(){
+	boolean swap = false;
+	for(int i = 0; i < size() - 1; i++){
+	    if(get(i).compareTo(get(i+1)) > 0){
+		String s = get(i);
+		ar[i] = ar[i+1];
+		ar[i+1] = s;
+		swap = true;
+	    }
+	}
+	if(swap){
+	    swap = false;
+	    for(int i = size() - 2; i > 0; i--){
+		if(get(i).compareTo(get(i+1)) > 0){
+		    String s = get(i);
+		    ar[i] = ar[i+1];
+		    ar[i+1] = s;
+		    swap = true;
+		}
+	    }
+	    if(swap)
+		doubleBubbleSort();
+	}
+    }
 }

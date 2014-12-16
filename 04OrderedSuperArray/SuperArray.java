@@ -221,8 +221,15 @@ public class SuperArray{
 	    }
 	}
     }
-    public void mergeSortMulti(){
+    public void longSort(){
+	/*String s = "0";
+	int v = size();
+	while(v > 2){
+	    s = s + "0";
+	    v/=2;
+	    }*/
 	if(size() <= 64){
+	    // System.out.println(s);
 	    selectionSort();
 	}else{
 	    SuperArray ar1 = new SuperArray(size()/2);
@@ -236,8 +243,9 @@ public class SuperArray{
 		ar2.add(ar[i]);
 		i++;
 	    }
-	    ar1.mergeSortMulti();
-	    ar2.mergeSortMulti();
+	    ar1.longSort();
+	    ar2.longSort();
+	    //System.out.println(s);
 	    int ar1c = 0;
 	    int ar2c = 0;
 	    for(int x = 0; x < size(); x++){
@@ -282,8 +290,9 @@ public class SuperArray{
 		    swap = true;
 		}
 	    }
-	    if(swap)
+	    if(swap){
 		doubleBubbleSort();
+	    }
 	}
     }
 }

@@ -1,10 +1,10 @@
 import java.util.*;
-public class SuperArray{
-    String[] ar;
-    public SuperArray(int a){
-	ar = new String[a];
+public class Sort{
+    Integer[] ar;
+    public Sort(int a){
+	ar = new Integer[a];
     }
-    public SuperArray(){
+    public Sort(){
 	this(10);
     }
     int arLength = 0;
@@ -26,7 +26,7 @@ public class SuperArray{
 	ans = s+s2;
 	return("[ "+ans+"]");
     }
-    public void add(String e){
+    public void add(int e){
 	if(arLength < ar.length){
 	    ar[arLength] = e;
 	    arLength++;
@@ -41,8 +41,8 @@ public class SuperArray{
 	return arLength;
     }
     public void resize(int a){
-	String[] bc;
-	bc = new String[a];
+	Integer[] bc;
+	bc = new Integer[a];
 	int x = 0;
 	arLength = 0;
 	while(x < bc.length && x < ar.length){
@@ -58,7 +58,7 @@ public class SuperArray{
 	    ar[x] = null;
 	}
     }
-    public String get(int a){
+    public Integer get(int a){
 	if(a > -1 && a < arLength){
 	    return ar[a];
 	}
@@ -67,9 +67,9 @@ public class SuperArray{
 		return null;
 	}
     }
-    public String set(int x, String a){
+    public Integer set(int x, int a){
 	if(x >= 0 && x < ar.length){
-	    String o = ar[x];
+	    int o = ar[x];
 	    ar[x] = a;
 	    return o;
 	}
@@ -78,7 +78,7 @@ public class SuperArray{
 	    return null;
 	}
     }
-    public void add(int x, String e){
+    public void add(int x, int e){
 	if(x >= 0 && x <= ar.length){
 	    if(arLength == ar.length){
 		resize(ar.length + 1);
@@ -94,14 +94,14 @@ public class SuperArray{
 	else
 	    System.out.println("invalid Index");
     }
-    public String remove(int x){
+    public Integer remove(int x){
 	if(x < 0 || x >= arLength){
 	    System.out.println("invalid index");
 	    return null;
 	}
 	else{
 	    int c = x;
-	    String ob = ar[x];
+	    int ob = ar[x];
 	    while(x < ar.length - 1){
 		ar[x] = ar[x + 1];
 		x++;
@@ -116,10 +116,10 @@ public class SuperArray{
     public void swapSlowSort(){
 	int x = 0;
 	while(x < ar.length - 1){
-	    if(ar[x].compareTo(ar[x+1]) <= 0){
+	    if(ar[x]-ar[x+1] <= 0){
 		x++;
 	    }else{
-		String i = ar[x];
+		int i = ar[x];
 		ar[x] = ar[x+1];
 		ar[x+1] = i;
 		if(x>0){
@@ -131,13 +131,13 @@ public class SuperArray{
     public void insertionSort(){
 	int i = 0;
 	while(i < size() - 2){
-	    if(ar[i].compareTo(ar[i+1]) <= 0)
+	    if(ar[i]-ar[i+1] <= 0)
 		i++;
 	    else{
 		//	System.out.println(i);
 		//	System.out.println(toString());
 		int a = 0;
-		for(int x = 0; ar[x].compareTo(ar[i + 1]) < 0; x++){
+		for(int x = 0; ar[x]-ar[i + 1] < 0; x++){
 		    a++;
 		}
 		//	System.out.println(a);
@@ -155,7 +155,7 @@ public class SuperArray{
     }
      public boolean check(){
 	for(int i = 0; i < size() - 2; i++){
-	    if(ar[i].compareTo(ar[i+1]) > 0){
+	    if(ar[i] - ar[i+1] > 0){
 		return false;
 	    }
 	}
@@ -163,9 +163,9 @@ public class SuperArray{
     }
     
     //this is linear
-    public int find(String s){
+    public int find(int s){
 	for(int i = 0; i < size(); i++){
-	    if(s.compareTo(get(i)) == 0)
+	    if(s-get(i) == 0)
 		return i;
 	}
 	System.out.println("String not in list");
@@ -175,11 +175,11 @@ public class SuperArray{
 	for(int i = 0; i < size(); i++){
 	    int spot = i;
 	    for(int x = i; x < size(); x++){
-		if(ar[spot].compareTo(ar[x]) > 0){
+		if(ar[spot]-ar[x] > 0){
 		    spot = x;
 		}
 	    }
-	    String a = ar[spot];
+	    int a = ar[spot];
 	    ar[spot] = ar[i];
 	    ar[i] = a;
 	}
@@ -209,7 +209,7 @@ public class SuperArray{
 		    ar[x] = ar2.get(ar2c);
 		    ar2c++;
 		}else{
-		    if(ar1.get(ar1c).compareTo(ar2.get(ar2c)) < 0){
+		    if(ar1.get(ar1c) - ar2.get(ar2c) < 0){
 			ar[x] = ar1.get(ar1c);
 			ar1c++;
 		    }
@@ -257,7 +257,7 @@ public class SuperArray{
 			ar[x] = ar2.get(ar2c);
 			ar2c++;
 		    }else{
-			if(ar1.get(ar1c).compareTo(ar2.get(ar2c)) < 0){
+			if(ar1.get(ar1c)-ar2.get(ar2c) < 0){
 			    ar[x] = ar1.get(ar1c);
 			    ar1c++;
 			}
@@ -273,8 +273,8 @@ public class SuperArray{
     public void doubleBubbleSort(){
 	boolean swap = false;
 	for(int i = 0; i < size() - 1; i++){
-	    if(get(i).compareTo(get(i+1)) > 0){
-		String s = get(i);
+	    if(get(i)-get(i+1) > 0){
+		int s = get(i);
 		ar[i] = ar[i+1];
 		ar[i+1] = s;
 		swap = true;
@@ -283,8 +283,8 @@ public class SuperArray{
 	if(swap){
 	    swap = false;
 	    for(int i = size() - 2; i > 0; i--){
-		if(get(i).compareTo(get(i+1)) > 0){
-		    String s = get(i);
+		if(get(i)-get(i+1) > 0){
+		    int s = get(i);
 		    ar[i] = ar[i+1];
 		    ar[i+1] = s;
 		    swap = true;
@@ -295,4 +295,24 @@ public class SuperArray{
 	    }
 	}
     }
+    public void bubbleSort(){
+	boolean swap = false;
+	int i = 0;
+	int z = 0;
+	while(z < 1){
+	    for(int x = 0; x < size()-(i+1); x++){
+		if(ar[x]-ar[x+1] > 0){
+		    int a = ar[x];
+		    ar[x] = ar[x+1];
+		    ar[x+1] = a;
+		    swap = true;}
+	    }
+	    if(swap){
+		i++;
+		swap = false;
+	    }else{
+		z++;
+	    }
+	}
+    }	    
 }

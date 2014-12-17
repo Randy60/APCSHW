@@ -128,7 +128,7 @@ public class Sort{
 	    }
 	}
     }
-    public void insertionSort(){
+    public void insertion(){
 	int i = 0;
 	while(i < size() - 2){
 	    if(ar[i]-ar[i+1] <= 0)
@@ -151,16 +151,17 @@ public class Sort{
 	    }
 	}
 	if(check() == false)
-	    insertionSort();
+	    insertion();
     }
+
      public boolean check(){
-	for(int i = 0; i < size() - 2; i++){
-	    if(ar[i] - ar[i+1] > 0){
-		return false;
-	    }
-	}
-	return true;
-    }
+	 for(int i = 0; i < size() - 2; i++){
+	     if(ar[i] - ar[i+1] > 0){
+		 return false;
+	     }
+	 }
+	 return true;
+     }
     
     //this is linear
     public int find(int s){
@@ -171,7 +172,7 @@ public class Sort{
 	System.out.println("String not in list");
 	return -1;
     }
-    public void selectionSort(){
+    public void selection(){
 	for(int i = 0; i < size(); i++){
 	    int spot = i;
 	    for(int x = i; x < size(); x++){
@@ -184,9 +185,9 @@ public class Sort{
 	    ar[i] = a;
 	}
     }
-    public void mergeSort(){
-	SuperArray ar1 = new SuperArray(size()/2);
-	SuperArray ar2 = new SuperArray(size()/2);
+    public void merge(){
+	Sort ar1 = new Sort(size()/2);
+	Sort ar2 = new Sort(size()/2);
 	int i = 0;
 	int ar1c = 0;
 	int ar2c = 0;
@@ -198,8 +199,8 @@ public class Sort{
 	    ar2.add(ar[i]);
 	    i++;
 	}
-	ar1.selectionSort();
-	ar2.selectionSort();
+	ar1.selection();
+	ar2.selection();
 	for(int x = 0; x < size(); x++){
 	    if(ar2c == size()/2){
 		ar[x] = ar1.get(ar1c);
@@ -221,19 +222,19 @@ public class Sort{
 	    }
 	}
     }
-    public void longSort(){
+    public void multi(){
 	/*String s = "0";
-	int v = size();
-	while(v > 2){
-	    s = s + "0";
-	    v/=2;
-	    }*/
+	  int v = size();
+	  while(v > 2){
+	  s = s + "0";
+	  v/=2;
+	  }*/
 	if(size() <= 64){
 	    // System.out.println(s);
-	    selectionSort();
+	    selection();
 	}else{
-	    SuperArray ar1 = new SuperArray(size()/2);
-	    SuperArray ar2 = new SuperArray(size()/2);
+	    Sort ar1 = new Sort(size()/2);
+	    Sort ar2 = new Sort(size()/2);
 	    int i = 0;
 	    while(i < size()/2){
 		ar1.add(ar[i]);
@@ -243,8 +244,8 @@ public class Sort{
 		ar2.add(ar[i]);
 		i++;
 	    }
-	    ar1.longSort();
-	    ar2.longSort();
+	    ar1.multi();
+	    ar2.multi();
 	    //System.out.println(s);
 	    int ar1c = 0;
 	    int ar2c = 0;
@@ -270,7 +271,7 @@ public class Sort{
 	    }
 	}
     }
-    public void doubleBubbleSort(){
+    public void doubleBubble(){
 	boolean swap = false;
 	for(int i = 0; i < size() - 1; i++){
 	    if(get(i)-get(i+1) > 0){
@@ -291,11 +292,13 @@ public class Sort{
 		}
 	    }
 	    if(swap){
-		doubleBubbleSort();
+		doubleBubble();
 	    }
 	}
     }
-    public void bubbleSort(){
+    public void bubble(){
+	multi();
+	/* yes I am showing you my recursive merge sort, but its more cool than bubble anyway, the bubble code is underneath
 	boolean swap = false;
 	int i = 0;
 	int z = 0;
@@ -314,5 +317,6 @@ public class Sort{
 		z++;
 	    }
 	}
-    }	    
+	*/
+    }   
 }

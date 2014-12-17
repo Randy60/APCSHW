@@ -7,7 +7,7 @@ public class Driver{
 	    Phil.add(r.nextInt(1000));
 	}
 	System.out.println(Phil.check());
-	Phil.longSort();
+	Phil.bubble();
 	System.out.println(Phil.check());
     }
 }

@@ -1,5 +1,11 @@
 import java.util.*;
 public class Sorts{
+    public static String name(){
+	return "Higgins, Randolph";
+    }
+    public static int period(){
+	return 6;
+    }
     public void selection(int[] ar){
 	for(int i = 0; i < ar.length; i++){
 	    int spot = i;

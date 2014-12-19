@@ -7,8 +7,8 @@ public class Driver{
 	for(int i = 0; i < 1000000; i++){
 	    ar[i] = r.nextInt(1000);
 	}
-	System.out.println(Phil.check(ar));
+	System.out.println(Phil.name());
 	Phil.multi(ar);
-	System.out.println(Phil.check(ar));
+	System.out.println(Phil.period());
     }
 }

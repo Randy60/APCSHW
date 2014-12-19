@@ -1,0 +1,15 @@
+public class Sorts{
+    public void selection(int[] ar){
+	for(int i = 0; i < ar.length; i++){
+	    int spot = i;
+	    for(int x = i; x < ar.length; x++){
+		if(ar[spot]-ar[x] > 0){
+		    spot = x;
+		}
+	    }
+	    int a = ar[spot];
+	    ar[spot] = ar[i];
+	    ar[i] = a;
+	}
+    }
+}

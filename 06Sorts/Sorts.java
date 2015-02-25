@@ -46,7 +46,7 @@ public class Sorts{
     	boolean swap = false;
 	int i = 0;
 	int z = 0;
-	multi(ar); // ;)
+	merge(ar); // ;)
 	while(z < 1){
 	    for(int x = 0; x < ar.length-(i+1); x++){
 		if(ar[x]-ar[x+1] > 0){
@@ -63,7 +63,18 @@ public class Sorts{
 	    }
 	}
     }
-    
+    public void prayerSort(int[] a){
+	Random r = new Random();
+	while(check(a) == false){
+	    for(int i = 0; i < a.length; i++){
+		int x = a[i];
+		int y = r.nextInt(a.length);
+		a[i] = a[y];
+		a[y] = x;
+	    }
+	}
+    }
+		
     public int raiseTo(int a, int exp){
 	if(exp == 0)
 	    return 1;
@@ -104,9 +115,9 @@ public class Sorts{
 	    exp++;
 	}
     }	
-    public void multi(int[] ar){
+    public void merge(int[] ar){
 	if(ar.length <= 64){
-	    selection(ar);
+	    insertion(ar);
 	}else{
 	    int[] ar1 = new int[ar.length/2];
 	    int[] ar2 = new int[ar.length - ar.length/2];
@@ -120,9 +131,8 @@ public class Sorts{
 		ar2[i] = ar[i + ar1.length - 1];
 		i++;
 	    }
-	    multi(ar1);
-	    multi(ar2);
-	    //System.out.println(s);
+	    merge(ar1);
+	    merge(ar2);
 	    int ar1c = 0;
 	    int ar2c = 0;
 	    for(int x = 0; x < ar.length; x++){
